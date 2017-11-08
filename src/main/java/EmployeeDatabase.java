@@ -15,6 +15,7 @@ public class EmployeeDatabase {
     /**
      * List of employees.
      */
+    @SuppressWarnings("all")
     public List<Employee> employees;
 
     /**
@@ -30,10 +31,10 @@ public class EmployeeDatabase {
     /**
      * Returns the manager for the given employee.
      *
-     * @param employee
-     * @return
+     * @param employee the employee to find the manager of
+     * @return the manager of the employee
      */
-    Employee findManager(final Employee employee) {
+    public Employee findManager(final Employee employee) {
         Employee manager = null;
         for (int i = 0; i < employees.size(); i++) {
             if (employees.get(i).getName() == employee.getManager()) {
@@ -50,12 +51,13 @@ public class EmployeeDatabase {
      * Consider both a recursive and an iterative solution to this problem.
      *
      * @param employee name of the employee
-     * @return int
+     * @return the number of managers
      */
     public int countManagersAbove(final Employee employee) {
-        /*
-         * Implement this function
-         */
+        if (findManager(employee) == null) {
+            return 0;
+        }
+        return countManagersAbove(findManager(employee)) + 1;
     }
 
     /**
@@ -64,12 +66,22 @@ public class EmployeeDatabase {
      * Consider both a recursive and an iterative solution to this problem.
      *
      * @param employee name of the employee
-     * @return int
+     * @return the number of employees under this manager
      */
     public int countEmployeesUnder(final Employee employee) {
-        /*
-         * Implement this function
-         */
+        Employee current;
+        int count = 0;
+        for (int i = 0; i < employees.size(); i++) {
+            current = employees.get(i);
+            while (current != null) {
+                if (current == employee) {
+                    count++;
+                    break;
+                }
+                current = findManager(current);
+            }
+        }
+        return count - 1;
     }
 
     /**
