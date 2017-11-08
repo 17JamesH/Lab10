@@ -96,7 +96,7 @@ public class EmployeeDatabase {
 
         EmployeeDatabase database = new EmployeeDatabase();
 
-        Employee betty = new Employee("Betty", "Sam");
+        Employee betty = new Employee("Betty", "    Sam");
         database.employees.add(betty);
         Employee bob = new Employee("Bob", "Sally");
         database.employees.add(bob);
